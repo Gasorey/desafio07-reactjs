@@ -9,7 +9,9 @@ import api from '../../services/api';
 
 import Header from '../../components/Header';
 
-import formatValue, { formatDate } from '../../utils/formatValue';
+import formatValue from '../../utils/formatValue';
+
+import formatDate from '../../utils/formatDate';
 
 import { Container, CardContainer, Card, TableContainer } from './styles';
 
@@ -37,21 +39,29 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
       const getList = await api.get('/transactions');
-      const { transactions, balance } = getList.data;
 
-      setTransactions(transactions);
-      setBalance(balance);
+      const listTransactions: Transaction[] = getList.data.transactions;
+      const balanceRequest: Balance = getList.data.balance;
+
+      const transactionsDate = listTransactions.map(transaction => {
+        const adjTransaction = transaction;
+
+        adjTransaction.formattedValue =
+          (transaction.type === 'outcome' ? '- ' : '') +
+          formatValue(transaction.value);
+
+        adjTransaction.formattedDate = formatDate(
+          new Date(transaction.created_at),
+        );
+        return adjTransaction;
+      });
+
+      setTransactions(transactionsDate);
+      setBalance(balanceRequest);
     }
+
     loadTransactions();
   }, []);
-
-  const transactionsDate = transactions.map(transaction => {
-    const adjTransaction = transaction;
-    adjTransaction.formattedValue =
-      (transaction.type === 'outcome' ? '-' : '') +
-      formatValue(transaction.value);
-    (adjTransaction.formattedDate = formatDate(new Date(transaction.created_at));
-  });
 
   return (
     <>
@@ -99,7 +109,7 @@ const Dashboard: React.FC = () => {
             </thead>
             <tbody>
               {transactions.map(transaction => (
-                <tr>
+                <tr key={transaction.id}>
                   <td className="title">{transaction.title}</td>
                   <td className={transaction.type}>
                     {transaction.formattedValue}
