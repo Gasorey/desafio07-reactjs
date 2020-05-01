@@ -16,10 +16,10 @@ Desafio elaborado para praticar ReactJs durante o GoStack
   <li>React Router DOM</li>
 </ul>
 
-<h2>Como utilizar<h2>
+<h2>Como utilizar</h2>
 <p>Basta clonar o repositório dentro de uma pasta de sua preferencia em seguida digitar o comando yarn 
-no terminal de sua IDE. Repita o processo para a API.
-Abra a pasta da API dentro do seu terminal e digite o comando "yarn dev:server" e mantenha esse terminal executando.
-Abra a pasta do projeto front-end dentro do seu termina le execute o comando "yarn start" em seguida acesse:
-http://localhost:3000 no navegador de sua preferencia para acessar o projeto.
-<p>
+no terminal de sua IDE. Repita o processo para a API.</p>
+<p>Abra a pasta da API dentro do seu terminal e digite o comando "yarn dev:server" e mantenha esse terminal executando.</p>
+<p>Abra a pasta do projeto front-end dentro do seu termina le execute o comando "yarn start" em seguida acesse:</p>
+  <p>http://localhost:3000 no navegador de sua preferencia para acessar o projeto.</p>
+
